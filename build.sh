@@ -20,13 +20,13 @@ setup_environment() {
     cd /tmp/stratos-keyring
     rm -f *.pkg.tar.zst 2>/dev/null
     sudo -u builder makepkg -si --noconfirm
-	gpg --recv-keys 83548C3262DD6D03057FAA546633C67B5AA566FE
-	pacman-key --lsign-key 83548C3262DD6D03057FAA546633C67B5AA566FE # Zstg add your key here :) 
+	gpg --keyserver keyserver.ubuntu.com --recv-keys 83548C3262DD6D03057FAA546633C67B5AA566FE
+	sudo -u builder pacman-key --lsign-key 83548C3262DD6D03057FAA546633C67B5AA566FE # Zstg add your key here :) 
     # pacman-key --lsign-key A046BE254138E0AC1BF5F66690D63B3FE2F217ED
     cd $dir
     echo -e "\n[StratOS-repo]\nSigLevel = Optional TrustAll\nServer = https://StratOS-Linux.github.io/StratOS-repo/x86_64" | sudo tee -a /etc/pacman.conf
     sudo sed -i 's/purge debug/purge !debug/g' /etc/makepkg.conf
-    sudo sed -i 's/^#* *GPGKEY *=.*/GPGKEY="A046BE254138E0AC1BF5F66690D63B3FE2F217ED"/' /etc/makepkg.conf # add zstg's public key
+    sudo sed -i 's/^#* *GPGKEY *=.*/GPGKEY="83548C3262DD6D03057FAA546633C67B5AA566FE"/' /etc/makepkg.conf # add zstg's public key
     sed -i 's/^#*\(PACKAGER=\).*/\1"StratOS team <stratos-linux@gmail.com>"/' /etc/makepkg.conf
     git config --global --add safe.directory /workspace
 }

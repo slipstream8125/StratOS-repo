@@ -21,7 +21,7 @@ setup_environment() {
     rm -f *.pkg.tar.zst 2>/dev/null
     sudo -u builder makepkg -si --noconfirm
 	gpg --keyserver keyserver.ubuntu.com --recv-keys 83548C3262DD6D03057FAA546633C67B5AA566FE
-	sudo -u builder pacman-key --lsign-key 83548C3262DD6D03057FAA546633C67B5AA566FE # Zstg add your key here :) 
+	sudo -u builder sudo pacman-key --lsign-key 83548C3262DD6D03057FAA546633C67B5AA566FE # Zstg add your key here :) 
     # pacman-key --lsign-key A046BE254138E0AC1BF5F66690D63B3FE2F217ED
     cd $dir
     echo -e "\n[StratOS-repo]\nSigLevel = Optional TrustAll\nServer = https://StratOS-Linux.github.io/StratOS-repo/x86_64" | sudo tee -a /etc/pacman.conf

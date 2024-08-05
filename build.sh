@@ -14,6 +14,8 @@ trap 'handle_error $LINENO' ERR
 setup_environment() {
     dir=$(pwd)
     pacman-key --init
+	pacman-key --populate archlinux
+	pacman -Syyu --noconfirm
     rm -rf /tmp/stratos-keyring 2>/dev/null
     cp -r $dir/PKGBUILDS/stratos-keyring /tmp
     sudo chown -R builder:builder /tmp/stratos-keyring

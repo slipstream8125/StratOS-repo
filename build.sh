@@ -10,6 +10,27 @@ handle_error() {
 trap 'handle_error $LINENO' ERR
 [ -d /workspace ] && git config --global --add safe.directory /workspace
 
+
+import_gpg_keys() {
+    local keys=(
+        "A046BE254138E0AC1BF5F66690D63B3FE2F217ED"  # StratOS key
+        "83548C3262DD6D03057FAA546633C67B5AA566FE"  # Another key mentioned in the script
+        "FF5A1AB3B8F9871D"  # Arch Linux Package Signing Key
+        "4AA4767BBC9C4B1D18AE28B77F2D434B9741E8AC"  # Arch Linux Package Signing Key
+        "D8AFDDA07A5B6EDFA7D8CCDAD6D055F927843F1C"  # Arch Linux Package Signing Key
+        "6AC6A4C2C8DA4E9E"  # Arch Linux Package Signing Key
+        "3056513887B78AEB"  # Arch Linux ARM Package Signing Key
+    )
+
+    for key in "${keys[@]}"; do
+        sudo -u builder gpg --recv-keys "$key" || true
+        sudo -u builder sudo pacman-key --recv-keys "$key" || true
+        sudo -u builder sudo pacman-key --lsign-key "$key" || true
+    done
+
+    sudo -u builder sudo pacman-key --refresh-keys
+}
+
 # Set up Arch Linux environment
 setup_environment() {
     dir=$(pwd)
@@ -22,6 +43,8 @@ setup_environment() {
     cd /tmp/stratos-keyring
     rm -f *.pkg.tar.zst 2>/dev/null
     sudo -u builder makepkg -si --noconfirm
+	sudo -u builder sudo pacman-key --refresh-keys
+	import_gpg_keys
 	# sudo -u builder sudo pacman-key --lsign-key 83548C3262DD6D03057FAA546633C67B5AA566FE # Zstg add your key here :) 
     sudo -u builder sudo pacman-key --lsign-key A046BE254138E0AC1BF5F66690D63B3FE2F217ED
     cd $dir

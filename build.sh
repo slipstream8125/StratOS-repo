@@ -28,7 +28,7 @@ import_gpg_keys() {
         sudo -u builder sudo pacman-key --lsign-key "$key" || true
     done
 
-    sudo -u builder sudo pacman-key --refresh-keys
+   # sudo -u builder sudo pacman-key --refresh-keys
 }
 
 # Set up Arch Linux environment

@@ -43,7 +43,7 @@ setup_environment() {
     cd /tmp/stratos-keyring
     rm -f *.pkg.tar.zst 2>/dev/null
     sudo -u builder makepkg -si --noconfirm
-	sudo -u builder sudo pacman-key --refresh-keys
+	# sudo -u builder sudo pacman-key --refresh-keys
 	import_gpg_keys
 	# sudo -u builder sudo pacman-key --lsign-key 83548C3262DD6D03057FAA546633C67B5AA566FE # Zstg add your key here :) 
     sudo -u builder sudo pacman-key --lsign-key A046BE254138E0AC1BF5F66690D63B3FE2F217ED

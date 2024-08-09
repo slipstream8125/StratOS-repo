@@ -14,7 +14,7 @@ trap 'handle_error $LINENO' ERR
 import_gpg_keys() {
     local keys=(
         "A046BE254138E0AC1BF5F66690D63B3FE2F217ED"  # StratOS key
-        "83548C3262DD6D03057FAA546633C67B5AA566FE"  # Another key mentioned in the script
+       # "83548C3262DD6D03057FAA546633C67B5AA566FE"  # Another key mentioned in the script
         "FF5A1AB3B8F9871D"  # Arch Linux Package Signing Key
         "4AA4767BBC9C4B1D18AE28B77F2D434B9741E8AC"  # Arch Linux Package Signing Key
         "D8AFDDA07A5B6EDFA7D8CCDAD6D055F927843F1C"  # Arch Linux Package Signing Key

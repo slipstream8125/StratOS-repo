@@ -14,7 +14,7 @@ trap 'handle_error $LINENO' ERR
 setup_environment() {
     dir=$(pwd)
     sudo -u builder sudo pacman-key --init
-	sudo -u builder pacman-key --populate archlinux
+	sudo -u builder sudo pacman-key --populate archlinux
 	pacman -Syyu --noconfirm
     rm -rf /tmp/stratos-keyring 2>/dev/null
     cp -r $dir/PKGBUILDS/stratos-keyring /tmp
@@ -22,9 +22,8 @@ setup_environment() {
     cd /tmp/stratos-keyring
     rm -f *.pkg.tar.zst 2>/dev/null
     sudo -u builder makepkg -si --noconfirm
-	sudo -u builder gpg --keyserver keyserver.ubuntu.com --recv-keys 83548C3262DD6D03057FAA546633C67B5AA566FE
-	sudo -u builder sudo pacman-key --lsign-key 83548C3262DD6D03057FAA546633C67B5AA566FE # Zstg add your key here :) 
-    # pacman-key --lsign-key A046BE254138E0AC1BF5F66690D63B3FE2F217ED
+	# sudo -u builder sudo pacman-key --lsign-key 83548C3262DD6D03057FAA546633C67B5AA566FE # Zstg add your key here :) 
+    sudo -u builder sudo pacman-key --lsign-key A046BE254138E0AC1BF5F66690D63B3FE2F217ED
     cd $dir
     echo -e "\n[StratOS-repo]\nSigLevel = Optional TrustAll\nServer = https://StratOS-Linux.github.io/StratOS-repo/x86_64" | sudo tee -a /etc/pacman.conf
     sudo sed -i 's/purge debug/purge !debug/g' /etc/makepkg.conf

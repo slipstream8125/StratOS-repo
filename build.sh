@@ -107,7 +107,7 @@ build_and_package() {
         sudo chmod -R 777 ./$i
         cd $i
         cp PKGBUILD $dir/PKGBUILDS/$i/PKGBUILD
-        sudo -u builder makepkg -cfs --noconfirm --sign
+        sudo -u builder makepkg --noconfirm --sign
         rm -rf $dir/x86_64/"$i"**.pkg.tar.zst
         mv *.pkg.tar.zst $dir/x86_64/
         cd ..

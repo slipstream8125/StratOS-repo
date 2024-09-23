@@ -171,7 +171,7 @@ build_and_package() {
 
 # Initialize and push to GitHub
 initialize_and_push() {
-    export URL="$(git config --get remote.origin.url | sed -E 's|.+[:/]([^:/]+)/([^/.]+)(\.git)?|\1/\2|')"
+    export URL="$(git config --get remote.origin.url | sed -E 's|.+[:/]([^:/]+)/([^/.]+)(\.git)?|\1|')"
     cd "$dir"
     git config --global --add safe.directory /workspace # unnecessary
     repo-remove x86_64/stratos.db.tar.gz
